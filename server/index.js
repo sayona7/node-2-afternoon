@@ -1,22 +1,18 @@
-// reqs
 const express = require("express");
-const cntrl = require("./controllers")
+const mc = require("./controllers/messages_controller");
 
-// app
 const app = express();
 
-// parsing
 app.use(express.json());
+app.use(express.static(__dirname + '/../public/build'));
 
-// endpoints
-const messURL = "api/messages";
-app.post(messURL, cntrl.create);
-app.get(messURL, cntrl.read);
-app.put(`${messURL}/:id`, cntrl.update);
-app.delete(`${messURL}/:id`, cntrl.delete);
+const messagesBaseUrl = "/api/messages";
+app.post(messagesBaseUrl, mc.create);
+app.get(messagesBaseUrl, mc.read);
+app.put(`${messagesBaseUrl}/:id`, mc.update);
+app.delete(`${messagesBaseUrl}/:id`, mc.delete);
 
-// port
 const port = 3001;
 app.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });
